@@ -1,5 +1,5 @@
 README for Sort::ArbBiLex
-                                        Time-stamp: "2001-03-18 00:28:50 MST"
+                                        Time-stamp: "2004-03-27 17:19:01 AST"
 
 			    Sort::ArbBiLex
 	      (arbitrary bi-level lexicographic sorting)
@@ -165,7 +165,7 @@ Comprehensive Perl Archive Network (CPAN).  Visit
 
 COPYRIGHT
 
-Copyright 1999-2001, Sean M. Burke <sburke@cpan.org>, all rights
+Copyright 1999-2004, Sean M. Burke <sburke@cpan.org>, all rights
 reserved.  This program is free software; you can redistribute it
 and/or modify it under the same terms as Perl itself.
 

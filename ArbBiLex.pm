@@ -1,13 +1,15 @@
 
 # -*-Fundamental-*- 
-require 5;    # Time-stamp: "2004-03-24 14:50:00 AST"
+require 5;    # Time-stamp: "2004-03-27 17:19:11 AST"
 package Sort::ArbBiLex;
 use strict;
 use vars qw(@ISA $Debug $VERSION);
-$VERSION = 3.41;
+$VERSION = "4.01";
 $Debug = 0;
 use Carp;
 use integer; # vroom vroom
+
+BEGIN { *UNICODE = eval('chr(256)') ? sub(){1} : sub(){0} }
 
 #POD at end 
 ###########################################################################
@@ -107,7 +109,7 @@ sub source_maker {
   my($glyph, $minor); # scratch
   for (my $major = 0; $major < @decl; $major++) {
     print "Family $major\n" if $Debug;
-    croak "Too many major glyphs" if $major > 255;
+    croak "Too many major glyphs" if !UNICODE and $major > 255;
     $max_family_length = @{ $decl[$major] }
      if  @{ $decl[$major] }  >  $max_family_length;
 
@@ -116,15 +118,14 @@ sub source_maker {
       print "  Glyph ($major)\:$minor (", $glyph, ")\n" if $Debug;
       croak "Glyph <$glyph> appears twice in the sort order declaration!"
        if $seen{$glyph}++;
-      croak "Too many minor glyphs" if $minor > 255;
+      croak "Too many minor glyphs" if !UNICODE and $minor > 255;
 
       $max_glyph_length = length($glyph) if length($glyph) > $max_glyph_length;
 
-      $glyph =~ s/([^a-zA-Z0-9])/'\\x'.(unpack("H2",$1))/eg;
+      $glyph =~ s/([^a-zA-Z0-9])/_char2esc($1)/eg;
       push @glyphs,    $glyph;
-       # was: push @glyphs,    "\\x" . unpack('H2', $decl[$major][$minor] );
-      push @major_out, sprintf "\\x%02X", $major;
-      push @minor_out, sprintf "\\x%02X", $minor;
+      push @major_out, _num2esc($major);
+      push @minor_out, _num2esc($minor);
         #  or  unpack 'H2', pack 'C', 12   or   unpack 'H2', chr 12; ?
     }
   }
@@ -272,6 +273,20 @@ EOVOODOO2
   print "\nCode to eval:\n", $code, "__ENDCODE__\n\n" if $Debug;
 
   return $code;
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+sub _char2esc {
+  my $in = ord( $_[0] );
+  return sprintf "\\x{%x}", $in if $in > 255;
+  return sprintf "\\x%02x", $in;
+}
+
+sub _num2esc {
+  my $in = $_[0];
+  return sprintf "\\x{%x}", $in if $in > 255;
+  return sprintf "\\x%02x", $in;
 }
 
 ###########################################################################
@@ -479,16 +494,13 @@ working backwards.  This can't be done simply with Sort::ArbBiLex.
 (But it's my experience that the difference is not significant, in the
 case of French data.)
 
-* Currently, you cannot declare more than 255 glyph-groups (i.e.,
+* If you're using a pre-Unicode version of Perl: you cannot declare
+more than 255 glyph-groups (i.e.,
 glyphs that sort the same at the first level), and no glyph-group can
-contain more that 255 glyphs each.  (This may change in the future.)
+contain more that 255 glyphs each.
 However, it's fine if the total number of glyphs in all glyph-groups
 sums to greater than 255 (as in the case of a declaration for 30
 glyph-groups with 10 glyphs each).
-
-* I'm writing this module before all details of Perl's future handling
-of text in Unicode are clear.  This may change how this module works,
-although I'm hoping it will not introduce any incompatibilities.
 
 * This library makes no provision for overriding the builtin C<sort>
 function.  It's probably a bad idea to try to do so, anyway.
@@ -897,7 +909,7 @@ name on it, like "MySorts::nornish").
 
 =head1 COPYRIGHT
 
-Copyright 1999-2001, Sean M. Burke C<sburke@cpan.org>, all rights
+Copyright 1999-2004, Sean M. Burke C<sburke@cpan.org>, all rights
 reserved.  This program is free software; you can redistribute it
 and/or modify it under the same terms as Perl itself.
 

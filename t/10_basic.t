@@ -1,7 +1,5 @@
-# Before `make install' is performed this script should be runnable with
-# `make test'. After `make install' it should work as `perl test.pl'
 
-# Time-stamp: "2001-03-18 00:11:47 MST"
+# Time-stamp: "2004-03-27 17:13:36 AST"
 
 use strict;
 use Test;
@@ -60,4 +58,5 @@ ok      ! n_lt( 'a'  , 'ax');
 ok      ! n_gt( 'a'  , 'ax');
 ok        n_le( 'a'  , 'ax');
 ok        n_ge( 'a'  , 'ax');
+
 
