@@ -1,5 +1,5 @@
 README for Sort::ArbBiLex
-                                        Time-stamp: "2000-05-13 19:27:53 MDT"
+                                        Time-stamp: "2000-12-08 23:55:45 MST"
 
 			    Sort::ArbBiLex
 	      (arbitrary bi-level lexicographic sorting)
@@ -134,6 +134,8 @@ something like this command:
 Then you may need something like
   setenv PERLLIB "$HOME/perl"
 in your shell initialization file (e.g., ~/.cshrc).
+
+For further information, see perldoc perlmodinstall
 
 
 DOCUMENTATION

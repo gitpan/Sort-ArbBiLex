@@ -1,6 +1,15 @@
 Revision history for Perl extension Sort::ArbBiLex.
-                                        Time-stamp: "2000-08-22 21:47:34 MDT"
+                                        Time-stamp: "2000-12-08 23:59:16 MST"
 
+2000-12-08   Sean M. Burke  sburke@cpan.org
+
+	* Version 3.31 -- adding import method; relevent doc changes.
+	* Fixing apparently obscure bug in the code to check that glyphs
+	in long-form (rLoL) declarations aren't references.
+	* Moved all the POD to after the end of the module code.
+	* Deturgidified the discussion of runtime/compiletime function
+	declaration.
+		
 2000-08-22   Sean M. Burke  sburke@cpan.org
 	
 	* Version 3.21 -- fixing bug that made the second level of sorting
