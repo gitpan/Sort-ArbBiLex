@@ -1,10 +1,10 @@
 
 # -*-Fundamental-*- 
-require 5;    # Time-stamp: "2001-03-18 00:36:10 MST"
+require 5;    # Time-stamp: "2004-03-24 14:50:00 AST"
 package Sort::ArbBiLex;
 use strict;
 use vars qw(@ISA $Debug $VERSION);
-$VERSION = 3.40;
+$VERSION = 3.41;
 $Debug = 0;
 use Carp;
 use integer; # vroom vroom
@@ -333,7 +333,7 @@ __END__
 
 =head1 NAME
 
-Sort::ArbBiLex -- make sort functions for arbitrary sort orders
+Sort::ArbBiLex - make sort functions for arbitrary sort orders
 
 =head1 SYNOPSIS
 
@@ -803,6 +803,46 @@ should be much faster, even though it may take you a bit of doing.  As
 always, though, don't try optimizing unless you're sure you need to
 (and don't be surprised if it doesn't have as great an effect as you
 hoped for).
+
+=head1 A GOOD STARTING POINT
+
+Here's a declaration for a sort function that uses all the characters
+A-Z / a-z and also all the alphabetic characters in Latin-1.  It
+should be a a good starting point for most declarations you'd want:
+
+  use Sort::ArbBiLex (
+    'schmancy_sort' =>
+    "
+     a A à À á Á â Â ã Ã ä Ä å Å æ Æ
+     b B
+     c C ç Ç
+     d D ð Ð
+     e E è È é É ê Ê ë Ë
+     f F
+     g G
+     h H
+     i I ì Ì í Í î Î ï Ï
+     j J
+     k K
+     l L
+     m M
+     n N ñ Ñ
+     o O ò Ò ó Ó ô Ô õ Õ ö Ö ø Ø
+     p P
+     q Q
+     r R
+     s S ß
+     t T þ Þ
+     u U ù Ù ú Ú û Û ü Ü
+     v V
+     w W
+     x X
+     y Y ý Ý ÿ
+     z Z
+    "
+  );
+
+Edit and re-shuffle letters as necessary.
 
 =head1 GUTS
 

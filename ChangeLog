@@ -1,6 +1,12 @@
 Revision history for Perl extension Sort::ArbBiLex.
-                                        Time-stamp: "2001-03-18 00:41:34 MST"
+                                        Time-stamp: "2004-03-24 14:51:02 AST"
 
+2004-03-24   Sean M. Burke  sburke@cpan.org
+	* Version 3.41 -- adding an extra example to the pod.
+	Also some misc distro things: moved test.pl to t/*, etc.
+
+	UNICODE SUPPORT IS COMING SOON!
+	
 2001-03-19   Sean M. Burke  sburke@cpan.org
 
 	* Version 3.40 -- adding comparator functions, and documentation

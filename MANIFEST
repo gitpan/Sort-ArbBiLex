@@ -1,6 +1,9 @@
 ArbBiLex.pm
 ChangeLog
-MANIFEST
 Makefile.PL
+MANIFEST
+MANIFEST.SKIP
 README
-test.pl
+t/00_about.t
+t/10_basic.t
+META.yml                                 Module meta-data (added by MakeMaker)
