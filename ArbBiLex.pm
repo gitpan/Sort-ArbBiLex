@@ -1,10 +1,10 @@
 
 # -*-Fundamental-*- 
-require 5;    # Time-stamp: "2000-12-09 01:15:50 MST"
+require 5;    # Time-stamp: "2000-12-09 12:30:56 MST"
 package Sort::ArbBiLex;
 use strict;
 use vars qw(@ISA $Debug $VERSION);
-$VERSION = 3.31;
+$VERSION = 3.32;
 $Debug = 0;
 use Carp;
 
@@ -380,7 +380,7 @@ level, not just the second, like the e in the paragraph above).  So
 "cuerno" comes I<before> "chile".  A character-based sort would not be
 able to see that "ch" should count as anything but "c" and "h".  So
 this library doesn't assume that the units of comparison are
-individual characters.
+necessarily individual characters.
 
 =head2 Limitations
 
@@ -516,7 +516,7 @@ As you might expect, you can specify a package, like so:
 
 If you don't know what C<*thing = EXPR> means or how it works,
 don't worry, just use it -- or duck the whole issue by using the
-"C<use Sort::ArbBiLex ('fulani_sort', DECL>".
+"C<use Sort::ArbBiLex ('fulani_sort', DECL);>".
 
 Actually, there's a minor difference between the various ways of
 declaring the subroutine C<fulani_sort>: if you declare it via a call
@@ -536,7 +536,9 @@ the program, to express that you're goung to want to use "fulani_sort"
 as a sub name:
 
   sub fulani_sort;  # yup, just that!
-  ....later...
+  ...later...
+  *fulani_sort = Sort::ArbBiLex::maker($my_decl);
+  ...later...
   @stuff = fulani_sort @whatever;  # no parens!
 
 And then all should be well.
@@ -551,6 +553,9 @@ But when you can't use the "C<use Sort::ArbBiLex ('fulani_sort',
 instead of a literal), then either add a "C<sub fulani_sort;>" line to
 your program; or just be sure to use parens on every call to the
 C<fulani_sort> function.
+
+See also: L<perlsub>, for the whys and wherefors of function
+protoptying, if you want all the scary details.
 
 =head2 The function Sort::ArbBiLex::source_maker(DECLARATION)
 
@@ -661,7 +666,7 @@ spaces inbetween) do I<not> sort the same.  You may expect that the
 sorter would magically collapse whitespace, seeing all sequences of
 whitespace as equal.  Au contraire!  They're glyphs, just like any
 others, so sorting "for sure" and "for  sure" (two spaces) is
-totally analogous to sorting "zabifanl" and "zabiifanl".
+totally analogous to sorting "ika" and "ikka".
 
 =head1 GUTS
 
@@ -711,8 +716,8 @@ pre-existing subs from their own package into the calling package.
 But Sort::ArbBiLex's C<import> is different -- there's no pre-existing
 subs to export, so it just makes new anonymous subs on demand, and
 sticks them into the package that's current for the given "C<use
-Sort::ArbBiLex>" line (unless the user specifies some other package,
-which is uncommon).
+Sort::ArbBiLex>" line (unless the given subname already has a package
+name on it, like "MySorts::nornish").
 
 =head1 COPYRIGHT
 
