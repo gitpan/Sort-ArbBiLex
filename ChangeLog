@@ -1,6 +1,12 @@
 Revision history for Perl extension Sort::ArbBiLex.
-                                        Time-stamp: "2000-12-09 12:31:49 MST"
+                                        Time-stamp: "2001-03-18 00:41:34 MST"
 
+2001-03-19   Sean M. Burke  sburke@cpan.org
+
+	* Version 3.40 -- adding comparator functions, and documentation
+	and discussion of them.  Adding them to test.pl.  Adding "use
+	integer" to the module, for presumably tiny speed increase.
+	
 2000-12-09   Sean M. Burke  sburke@cpan.org
 
 	* Version 3.32 -- just fixing incidental typos in the POD.
@@ -25,10 +31,10 @@ Revision history for Perl extension Sort::ArbBiLex.
 
 1999-01-11  Sean M. Burke  sburke@netadventure.net
 
+	* Release 3.1 -- first release version.
+
 	* Versions before 3.1 -- dozens of test versions I kicked around
 	for months and months.  Scads of interface changes, a good
 	half-dozen changes in the module name.  Endless changes to the
 	docs.
-
-	* Release 3.1 -- first release version.
 

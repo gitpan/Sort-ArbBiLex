@@ -1,34 +1,26 @@
 # Before `make install' is performed this script should be runnable with
 # `make test'. After `make install' it should work as `perl test.pl'
 
-######################### We start with some black magic to print on failure.
+# Time-stamp: "2001-03-18 00:11:47 MST"
 
-# Change 1..1 below to 1..last_test_to_print .
-# (It may become useful if the test is moved to ./t subdirectory.)
-
-BEGIN { $| = 1; print "1..1\n"; }
-END {print "not ok 1\n" unless $loaded;}
-use Sort::ArbBiLex;
-$loaded = 1;
-print "ok 1\n";
-
-######################### End of black magic.
-
-# Insert your test code below (better if it prints "ok 13"
-# (correspondingly "not ok 13") depending on the success of chunk 13
-# of the test code):
+use strict;
+use Test;
+BEGIN { plan tests => 20 };
+use Sort::ArbBiLex ();
+BEGIN { ok 1; }
 
 # $Sort::ArbBiLex::Debug = 2;
 
-my $decl = [
- [' '],
- ['A', 'a'],
- ['b'],
- ["h", "x'"],
- ['i'],
- ['u'],
-];
-*foosort = Sort::ArbBiLex::maker($decl);
+use Sort::ArbBiLex ('foosort' => 
+ [
+  [' '],
+  ['A', 'a'],
+  ['b'],
+  ["h", "x'"],
+  ['i'],
+  ['u'],
+ ]
+);
 
 my $out = join(' ~ ',
  foosort(
@@ -37,4 +29,35 @@ my $out = join(' ~ ',
 );
 my $expected = "Aba ~ aba ~ ax'ub ~ ahub iki ~ ahuba ~ ahubiki ~ hub ~ x'ub";
 print " Output  : $out\n Expected: $expected\n";
-print $out eq $expected ? "ok 2\n" : "fail 2\n";
+ok($out eq $expected); # ? "ok 2\n" : "fail 2\n";
+
+use Sort::ArbBiLex ('n_sort' => " a A  \n  b B  \n  c C ");
+sub n_cmp { Sort::ArbBiLex::xcmp(\&n_sort, @_) };
+sub n_lt  { Sort::ArbBiLex::xlt( \&n_sort, @_) };
+sub n_gt  { Sort::ArbBiLex::xgt( \&n_sort, @_) };
+sub n_le  { Sort::ArbBiLex::xle( \&n_sort, @_) };
+sub n_ge  { Sort::ArbBiLex::xge( \&n_sort, @_) };
+
+ok   n_lt( 'a'  , 'b');
+ok ! n_gt( 'a'  , 'b');
+ok ! n_le( 'b'  , 'a');
+ok   n_le( 'a'  , 'b');
+ok   n_le( 'a'  , 'a');
+
+ok   n_gt( 'b'  , 'a');
+ok ! n_lt( 'b'  , 'a');
+ok ! n_ge( 'a'  , 'b');
+ok   n_ge( 'b'  , 'a');
+ok   n_ge( 'a'  , 'a');
+
+ok -1 == n_cmp( 'a'  , 'b');
+ok  1 == n_cmp( 'b'  , 'a');
+ok  0 == n_cmp( 'a'  , 'a');
+
+
+ok  0 == n_cmp( 'a'  , 'ax');
+ok      ! n_lt( 'a'  , 'ax');
+ok      ! n_gt( 'a'  , 'ax');
+ok        n_le( 'a'  , 'ax');
+ok        n_ge( 'a'  , 'ax');
+

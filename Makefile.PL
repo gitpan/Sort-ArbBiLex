@@ -1,5 +1,5 @@
 # This -*- perl -*- script writes the Makefile for Sort::ArbBiLex
-# Time-stamp: "1999-01-12 21:20:42 MST"
+# Time-stamp: "2001-03-18 00:40:25 MST"
 # See lib/ExtUtils/MakeMaker.pm for details of how to influence
 # the contents of the Makefile that is written.
 require 5.004;
