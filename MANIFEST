@@ -1,7 +1,6 @@
 ArbBiLex.pm
 ChangeLog
 MANIFEST
-Makefile
 Makefile.PL
 README
 test.pl

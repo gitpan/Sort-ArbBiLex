@@ -1,14 +1,14 @@
-#!/bin/false
-# -*-Fundamental-*-
-# Time-stamp: "1999-01-12 21:38:48 MST"
 
-package Sort::ArbBiLex;
+# -*-Fundamental-*-
+# Time-stamp: "2000-05-13 19:28:55 MDT"
+
 require 5;
+package Sort::ArbBiLex;
 use strict;
 use vars qw(@ISA $Debug $VERSION);
 use Carp;
 $Debug = 0;
-$VERSION = 3.1;
+$VERSION = 3.11;
 
 =head1 NAME
 
@@ -409,13 +409,13 @@ always The Right Thing.
 
 =head1 COPYRIGHT
 
-Copyright 1999, Sean M. Burke <sburke@netadventure.net>, all rights
+Copyright 1999, 2000 , Sean M. Burke <sburke@cpan.org>, all rights
 reserved.  This program is free software; you can redistribute it
 and/or modify it under the same terms as Perl itself.
 
 =head1 AUTHOR
 
-Sean M. Burke C<sburke@netadventure.net>
+Sean M. Burke C<sburke@cpan.org>
 
 =cut
 
