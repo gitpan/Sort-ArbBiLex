@@ -1,6 +1,6 @@
 
 # -*-Fundamental-*-
-# Time-stamp: "2000-05-13 19:28:55 MDT"
+# Time-stamp: "2000-08-22 21:38:58 MDT"
 
 require 5;
 package Sort::ArbBiLex;
@@ -8,7 +8,7 @@ use strict;
 use vars qw(@ISA $Debug $VERSION);
 use Carp;
 $Debug = 0;
-$VERSION = 3.11;
+$VERSION = 3.21;
 
 =head1 NAME
 
@@ -409,7 +409,7 @@ always The Right Thing.
 
 =head1 COPYRIGHT
 
-Copyright 1999, 2000 , Sean M. Burke <sburke@cpan.org>, all rights
+Copyright 1999, 2000, Sean M. Burke C<sburke@cpan.org>, all rights
 reserved.  This program is free software; you can redistribute it
 and/or modify it under the same terms as Perl itself.
 
@@ -426,6 +426,13 @@ sub maker {
   die "Compile error <$@> in eval!?!" if $@; # shouldn't be possible!
   return $subr;
 }
+
+# Implementation note:  I didn't need to use eval().  I could just return
+#  an appropriate closure.  But one can't do tr/$foo/$bar/ -- eval is the
+#  only way to get things to (so to speak) interpolate there; and the
+#  efficiency cost of requiring that Perl parse more code is offset by
+#  the efficiency benefit of being able to use tr/// (instead of s///) in
+#  appropriate cases.
 
 sub source_maker {
   no locale;
@@ -553,7 +560,7 @@ EOMJ
 my(\%major, \%minor);
 \@major{$glyphs}
  = ($major_out);
-\@minor{keys \%major}
+\@minor{$glyphs}
  = ($minor_out);
 my \$glyph_re = join "|", map(quotemeta,
                              sort {length(\$b) <=> length(\$a)} keys \%major);

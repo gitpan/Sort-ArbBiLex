@@ -32,10 +32,9 @@ my $decl = [
 
 my $out = join(' ~ ',
  foosort(
-  "ax'ub", 'ahuba', 'ahub iki', 'ahubiki', 'aba', 'Aba', 'hub', "x'ub"
+  "ax'ub", 'ahuba', 'ahub iki', 'ahubiki', "x'ub", 'aba', 'Aba', 'hub',
  )
 );
-my $expected = "aba ~ Aba ~ ax'ub ~ ahub iki ~ ahuba ~ ahubiki ~ x'ub ~ hub";
+my $expected = "Aba ~ aba ~ ax'ub ~ ahub iki ~ ahuba ~ ahubiki ~ hub ~ x'ub";
 print " Output  : $out\n Expected: $expected\n";
 print $out eq $expected ? "ok 2\n" : "fail 2\n";
-

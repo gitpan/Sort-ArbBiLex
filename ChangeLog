@@ -1,5 +1,10 @@
 Revision history for Perl extension Sort::ArbBiLex.
-                                        Time-stamp: "2000-05-13 19:29:57 MDT"
+                                        Time-stamp: "2000-08-22 21:47:34 MDT"
+
+2000-08-22   Sean M. Burke  sburke@cpan.org
+	
+	* Version 3.21 -- fixing bug that made the second level of sorting
+	behave incorrectly in the case of multi-glyph mode.
 
 2000-05-13  Sean M. Burke  sburke@cpan.org
 
